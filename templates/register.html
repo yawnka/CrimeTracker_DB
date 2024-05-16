@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <script>
+        function validateForm() {
+            var pw = document.getElementById("password").value;
+            var cpw = document.getElementById("confirm_password").value;
+            // check if the pw match up
+            if (pw !== cpw) {
+                alert("Passwords do not match");
+                return false;
+            }
+            // check the badge number based on the register type
+            var registerType = document.querySelector('input[name="register_type"]:checked');
+            if (!registerType) {
+                alert("Please select a registration type");
+                return false;
+            }
+            var badgeNumber = document.getElementById("badge_number").value;
+            if (registerType.value === 'common_user' && badgeNumber !== '') {
+                alert("Badge number should be left blank for common users");
+                return false;
+            }
+            if (registerType.value === 'officer_user' && badgeNumber === '') {
+                alert("Badge number is required for officers");
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Crime Tracking Database</h1>
+            <h1>Register</h1>
+            <h2>{{ message }}</h2>
+
+            <form action="{{ url_for('register') }}" method="post" onsubmit="return validateForm()">
+                <br>
+                <div>
+                    <input type="radio" id="common_user_register" name="register_type" value="common_user">
+                    <label for="common_user_register">Common User Register</label>
+                </div>
+                <br>
+                <div>
+                    <input type="radio" id="officer_user_register" name="register_type" value="officer_user">
+                    <label for="officer_user_register">Officer User Register</label>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    <input class="form-control" name="first" placeholder="First Name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="last" placeholder="Last Name" type="text" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" name="username" placeholder="Username" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" required> 
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" id="badge_number" name="badge_number" placeholder="Badge Number (Optional)" type="text">
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary">Register</button>
+                </div>
+
+                <div class="form-group">
+                    <a>Already have an account? </a><a href="/login">Login here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

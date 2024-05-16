@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <script>
+        function validateForm() {
+            
+            // check the badge number based on the register type
+            var loginType = document.querySelector('input[name="login_type"]:checked');
+            if (!loginType) {
+                alert("Please select a login type");
+                return false;
+            }
+            var badgeNumber = document.getElementById("badge_number").value;
+            if (loginType.value === 'common_user' && badgeNumber !== '') {
+                alert("Badge number should be left blank for common users");
+                return false;
+            }
+            if (loginType.value === 'officer_user' && badgeNumber === '') {
+                alert("Badge number is required for officers");
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class = "container">
+        <div class="form-container">
+        <h1>Crime Tracking Database</h1>
+        <h1>Login</h1>
+        <h2> {{ message }} </h2>
+        <form action="{{ url_for('login') }}" method="post" onsubmit="return validateForm()">
+            <br>
+            <div>
+                <input type="radio" id="common_user_login" name="login_type" value="common_user">
+                <label for="common_user_login">Common User</label>
+            </div>
+            <br>
+            <div>
+                <input type="radio" id="officer_user_login" name="login_type" value="officer_user">
+                <label for="officer_user_login">Officer User</label>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <input class="form-control" name="username" placeholder="Username" type="text"  required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="badge_number" placeholder="Badge Number (Required for Officers)" type="text">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Login</button>
+            </div>
+            <div class="form-group">
+                <a>Don't have an account? </a><a href="/register">Register here</a>
+            </div>
+
+        </form>
+        </div>
+    </div>
+</body>
+</html>

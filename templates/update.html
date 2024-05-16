@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href={{ url_for('static', filename='update.css') }}>
+        <title>User Input Form</title>
+        <script>
+            function validateForm() {
+                var criminal_id = parseInt(document.getElementById("criminal_id").value);
+                var new_classification = document.getElementById("new_classification").value;
+                var new_status = document.getElementById("new_status").value;
+                var new_hearing_date = document.getElementById("new_hearing_date").value;
+                var new_date_charged = document.getElementById("new_date_charged").value;
+                var new_appeal_cut_date = document.getElementById("new_appeal_cut_date").value;
+                
+    
+                // Classification: F, M, O, U
+                if (!['F', 'M', 'O', 'U'].includes(new_classification)) {
+                    alert("Classification should be limited to F/M/O/U");
+                    return false;
+                }
+    
+                // Status: CL, CA, IA
+                if (!['CL', 'CA', 'IA'].includes(new_status)) {
+                    alert("Status should be limited to CL/CA/IA");
+                    return false;
+                }
+    
+                // Check date format YYYY-MM-DD
+                var pattern = /^\d{4}-\d{2}-\d{2}$/;
+                if (!(pattern.test(new_appeal_cut_date))) {
+                    alert("Appeal cutoff date should be in YYYY-MM-DD format");
+                    return false;
+                }
+                if (!(pattern.test(new_hearing_date))) {
+                    alert("Hearing date should be in YYYY-MM-DD format");
+                    return false;
+                }
+                if (!(pattern.test(new_date_charged))) {
+                    alert("Date charged should be in YYYY-MM-DD format");
+                    return false;
+                }
+                
+                // Check Hearing date > date charged
+                if (!(new Date(new_hearing_date) > new Date(new_date_charged))){
+                    alert("Hearing date should be after the date charged");
+                    return false;
+                }
+    
+                return true;
+            }
+
+        </script>
+    </head>
+
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li class="nav"><a href="/home">Home</a></li>
+            <li class="nav"><a href="/search">Search</a></li>
+            <li class="nav"><a href="/add">Add</a></li>
+            <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <div class = "container">
+        <div class="form-container">
+        <h1>Update Criminal Info</h1>
+        <h2> Enter & Save Changes</h2>
+        
+        <form action="/updated" method="post" onsubmit="return validateForm()">
+            <label for="criminal_id">Criminal ID:</label><br>
+            <input type="hidden" id="criminal_id" name="criminal_id" value="{{id}}">
+            <span>{{id}}</span><br><br>
+            
+            <label for="new_classification">Classification:</label><br>
+            <input type="text" id="new_classification" name="new_classification" value={{classification}}><br><br>
+
+            <label for="new_date_charged">Date Charged:</label><br>
+            <input type="text" id="new_date_charged" name="new_date_charged" value={{date_charged}}><br><br>
+
+            <label for="new_status">Status:</label><br>
+            <input type="text" id="new_status" name="new_status" value={{status}}><br><br>
+            
+            
+            <label for="new_hearing_date">Hearing Date:</label><br>
+            <input type="text" id="new_hearing_date" name="new_hearing_date" value={{hearing_date}}><br><br>
+
+            <label for="new_appeal_cut_date">Appeal Cutoff Date:</label><br>
+            <input type="text" id="new_appeal_cut_date" name="new_appeal_cut_date" value={{appeal_cut_date}}><br><br>
+            
+            <input type="submit" formaction="/updated" value="Update" onclick="return popUpUpdate();">
+
+            
+        </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function popUpUpdate() {
+      return confirm('Are you sure you want to update the selected record?');
+    }
+  </script>

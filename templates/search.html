@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='search.css') }}>
+    <title>Search</title>
+    <script>
+        function validateForm() {
+            
+            // check the search type is selected
+            var searchType = document.querySelector('input[name="search_type"]:checked');
+            if (!searchType) {
+                alert("Please select a search type");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li class="nav"><a href="/home">Home</a></li>
+            <li class="nav"><a href="/search">Search</a></li>
+            <li class="nav"><a href="/add">Add</a></li>
+            <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h1>Search</h1>
+    <div class="form-container">
+    <form action="/searchresult" method="get" onsubmit="return validateForm()">
+        <label for="search_by_criminal">Enter Here:</label>
+        <input type="text" id="search_query" name="query">
+        <br>
+        <div>
+        <input type="radio" id="search_by_criminal" name="search_type" value="criminal">
+        <label for="search_by_criminal">Search for criminal</label>
+        </div>
+        <br>
+        <div>
+        <input type="radio" id="search_by_officer" name="search_type" value="officer">
+        <label for="search_by_officer">Search for probation officer</label>
+        </div>
+        <br>
+        <div>
+        <input type="radio" id="search_badge_num" name="search_type" value="badge_num">
+        <label for="search_badge_num">Search for a Crime Officer's Badge Number</label>
+        </div>
+        <br>
+        <input type="submit" value="Click To Show Database Results">
+    </form>
+    </div>
+</body>
+</html>

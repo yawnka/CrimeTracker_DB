@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='search.css') }}>
+    <title>Search</title>
+    <script>
+        function validateForm() {
+            // Check if any radio button is checked
+            var searchType = document.querySelector('input[name="search_type"]:checked');
+            if (!searchType) {
+                alert("Please select a search type");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li class="nav"><a href="/userhome">Home</a></li>
+            <li class="nav"><a href="/search">Search</a></li>
+            <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h2>Search</h2>
+    <div class="form-container">
+        <form action="/searchresult" method="get" onsubmit="return validateForm()">
+            <label for="search_query">Enter Here:</label>
+            <input type="text" id="search_query" name="query">
+            <br>
+            <div>
+                <input type="radio" id="search_by_criminal" name="search_type" value="criminal">
+                <label for="search_by_criminal">Search for criminal</label>
+            </div>
+            <br>
+            <div>
+                <input type="radio" id="search_by_officer" name="search_type" value="officer">
+                <label for="search_by_officer">Search for probation officer</label>
+            </div>
+            <br>
+            <input type="submit" value="Click To Show Database Results">
+        </form>
+    </div>
+</body>
+</html>

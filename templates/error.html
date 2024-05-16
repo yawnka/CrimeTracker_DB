@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='search_results.css') }}>
+    <title>Error</title>
+</head>
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li class="nav"><a href="/home">Home</a></li>
+            <li class="nav"><a href="/search">Search</a></li>
+            <li class="nav"><a href="/add">Add</a></li>
+            <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <div class = "container">
+        <div class="form-container">
+    <h2>Error</h2>
+    <p>{{ error_message }}</p>
+    </div>
+    </div>
+
+</body>
+</html>

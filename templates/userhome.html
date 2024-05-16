@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href={{ url_for('static', filename='home.css') }}>
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-bar">
+        <li class="nav"><a href="/userhome">Home</a></li>
+        <li class="nav"><a href="/search">Search</a></li>
+        <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h1>Welcome Back {{ name }}</h1>
+  <br>
+
+  <h2>Crimes</h2>
+
+  <table>
+      <tr>
+        <th>ID</th>
+        <th>Criminal ID</th>
+        <th>Type</th>
+        <th>Date Charged</th>
+        <th>Current Status</th>
+        <th>Hearing Date</th>
+        <th>Deadline for Appeal</th>
+      </tr>
+  
+      {% for row in crime_rows %}
+      <tr>
+          {% for column in crime_columns %}
+          <td>{{ row[column] }}</td>
+          {% endfor %}
+      </tr>
+      {% endfor %}
+  </table>
+  
+  <br>
+
+  <h2>Criminals</h2>
+
+  <table>
+      <tr>
+        <th>Criminal ID</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Street Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+        <th>Phone Number</th>
+        <th>Violent Offender Status</th>
+        <th>Probation Status</th>
+      </tr>
+  
+      {% for row in rows %}
+      <tr>
+          {% for column in columns %}
+          <td>{{ row[column] }}</td>
+          {% endfor %}
+      </tr>
+      {% endfor %}
+  </table>
+  <br>
+
+
+</body>
+</html>
+  
+</body>
+</html>

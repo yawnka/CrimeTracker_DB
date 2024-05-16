@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='search_results.css') }}>
+    <title>Badge Search Results</title>
+</head>
+<body>
+    <nav>
+        <ul class="nav-bar">
+        <li class="nav"><a href="/userhome">Home</a></li>
+        <li class="nav"><a href="/search">Search</a></li>
+        <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h1>Badge Search Results</h1>
+    <div class = "container">
+        <div class="form-container">
+        <p>The badge number corresponding to your search is:</p>
+        <h2>{{ badge }}</h2>
+        </div>
+    </div>
+</body>
+</html>

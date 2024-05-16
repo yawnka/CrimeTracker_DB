@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='search_results.css') }}>
+    <title>Search Results</title>
+</head>
+<body>
+    <nav>
+        <ul class="nav-bar">
+        <li class="nav"><a href="/userhome">Home</a></li>
+        <li class="nav"><a href="/search">Search</a></li>
+        <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h2>Search By Criminal Results</h2>
+    <div class="container-for-table">
+    <table border="1">
+        <tr>
+            {% for key in search_results[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+        {% for record in search_results %}
+        <tr>
+            {% for value in record.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+</body>
+</html>

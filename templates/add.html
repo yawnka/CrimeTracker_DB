@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href={{ url_for('static', filename='add.css') }}>
+    <title>User Input Form</title>
+    <script>
+          // Error Checking: assuming the record exists, check if the input is valid.    
+        function validateForm() {
+            var criminal_id = parseInt(document.getElementById("criminalID").value);
+            var new_classification = document.getElementById("classification").value;
+            var regex = /^\d{4}-\d{2}-\d{2}$/; //  'YYYY-MM-DD' format
+            var date_charged = document.getElementById("Date_Charged").value;
+            var status = document.getElementById("Status").value;
+            var hearing_date = document.getElementById("Hearing_Date").value;
+            var appeal_cutoff_date = document.getElementById("Appeal_Cutoff_Date").value;
+            var cr_ID = parseInt(document.getElementById("cr_ID").value);
+            var last = document.getElementById("new_Last").value;
+            var first = document.getElementById("new_First").value;
+            var city = document.getElementById("new_City").value;
+            var street = document.getElementById("new_Street").value;
+            var state = document.getElementById("new_State").value;
+            var zip = document.getElementById("new_Zip").value;
+            var phone = document.getElementById("new_Phone").value;
+            var v_status = document.getElementById("new_V_status").value;
+            var p_status = document.getElementById("new_P_status").value;
+
+            if (new_classification.length > 1) {
+                alert("Classification should not be longer than 1 character")
+                return false;
+            }
+            if (!['F', 'M', 'O', 'U'].includes(new_classification)) {
+                    alert("Classification should be limited to F/M/O/U");
+                    return false;
+                }
+            if (!regex.test(date_charged)) {
+                alert("Input does not follow the correct format 'YYYY-MM-DD'.");
+                return false;
+            }
+            if (status.length > 2) {
+                alert("Status should not be longer than 2 characters");
+                return false;
+            }
+
+            if (!['CL', 'CA', 'IA'].includes(new_status)) {
+                    alert("Status should be limited to CL/CA/IA");
+                    return false;
+                }
+
+            if (!regex.test(hearing_date)) {
+                alert("Input does not follow the correct format 'YYYY-MM-DD'.");
+                return false;
+            }
+        
+            if (!regex.test(Appeal_Cutoff_Date)) {
+                alert("Input does not follow the correct format 'YYYY-MM-DD'.");
+                return false;
+            }
+            // criminal input checks
+            if (criminal_id != cr_ID) {
+                alert("The criminal ID's are not the same");
+                return false;
+            }
+
+            if (last.length > 15) {
+                alert("The Last name should not be longer than 15 characters")
+                return false;
+            }
+            if (first.length > 10) {
+                alert("The first name should not be longer than 10 characters")
+                return false;
+            }
+
+            if (street.length > 30) {
+                alert("The Street Address should not be longer than 30 characters")
+                return false;
+            }
+            
+            if (city.length > 20) {
+                alert("The City should not be longer than 20 characters")
+                return false;
+            }
+           
+            if (state.length > 2) {
+                alert("The State Initials should not be longer than 2 characters")
+                return false;
+            }
+            
+            if (zip.length > 5) {
+                alert("The Zip Code should not be longer than 5 characters")
+                return false;
+            }
+            
+            if (phone.length > 10) {
+                alert("The Phone Number should not be longer than 10 characters")
+                return false;
+            }
+            
+            if (v_status.length > 1) {
+                alert("The Violent Offender Status should be Y or N")
+                return false;
+            }
+            if (!['Y', 'N'].includes(v_status)) {
+                alert("Violation Offender Status should be limited to Y or N");
+                return false;
+            }
+
+            
+            if (p_status.length > 1) {
+                alert("The Probation Status should be Y or N")
+                return false;
+            }
+        
+            if (!['Y', 'N'].includes(p_status)) {
+                alert("Probation Status should be limited to Y or N");
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li class="nav"><a href="/home">Home</a></li>
+            <li class="nav"><a href="/search">Search</a></li>
+            <li class="nav"><a href="/add">Add</a></li>
+            <li class="nav"><a href="/logout">Log Out</a></li>
+        </ul>
+    </nav>
+    <h1>Add a Crime and a Criminal</h1>
+    <div class="form-container">
+        <h2>Enter Crime Information</h2>
+        <form action="/add" method = "post" onsubmit="return validateForm()">
+            <label for="Date Charged">Crime ID:</label>
+            <input type="text" id="Crime_ID" name="Crime_ID" required>
+
+            <label for="criminalID">Criminal ID:</label>
+            <input type="text" id="criminalID" name="criminalID" required>
+            
+            <label for="classification">Classification:</label>
+            <input type="text" id="classification" name="classification">
+
+            <label for="Date Charged">Date Charged:</label>
+            <input type="text" id="Date_Charged" name="Date_Charged" required>
+
+            <label for="Status">Status:</label>
+            <input type="text" id="Status" name="Status" required>
+
+            <label for="Hearing Date">Hearing Date:</label>
+            <input type="text" id="Hearing_Date" name="Hearing_Date" required>
+
+            <label for="Appeal Cutoff Date">Appeal Cutoff Date:</label>
+            <input type="text" id="Appeal_Cutoff_Date" name="Appeal_Cutoff_Date" required>
+
+            <h2>Enter Criminal Information</h2>
+            <label for="Criminal ID">Criminal ID:</label>
+            <input type="text" id="cr_ID" name="cr_ID" required>
+
+            <label for="Last Name">Last Name:</label>
+            <input type="text" id="new_Last" name="new_Last" required>
+
+            <label for="First Name">First Name:</label>
+            <input type="text" id="new_First" name="new_First" required>
+
+            <label for="Street">Street:</label>
+            <input type="text" id="new_Street" name="new_Street" required>
+
+            <label for="City">City:</label>
+            <input type="text" id="new_City" name="new_City" required>
+
+            <label for="State">State:</label>
+            <input type="text" id="new_State" name="new_State" required>
+
+            <label for="Zip Code">Zip Code:</label>
+            <input type="text" id="new_Zip" name="new_Zip" required>
+
+            <label for="Phone Number">Phone Number:</label>
+            <input type="text" id="new_Phone" name="new_Phone" required>
+
+            <label for="Violent Offender Status">Violent Offender Status:</label>
+            <input type="text" id="new_V_status" name="new_V_status">
+
+            <label for="Probation Status">Probation Status:</label>
+            <input type="text" id="new_P_status" name="new_P_status">
+
+            <input type="submit" formaction="/add" value="Add to Database" onclick="return popUpAdd();">
+    </form>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function popUpAdd() {
+      return confirm('Are you sure you want to add this record?');
+    }
+  </script>
